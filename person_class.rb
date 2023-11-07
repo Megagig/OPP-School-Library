@@ -1,4 +1,7 @@
 class Person
+    # Getters and setters
+    attr_accessor :name, :age
+    attr_reader :id
   # Constructor with instance variables
   def initialize(name = 'unknown', age = nil, parent_permission: true)
     @id = generate_id
@@ -7,10 +10,7 @@ class Person
     @parent_permission = parent_permission
   end
 
-  # Getters and setters
 
-  attr_accessor :name, :age
-  attr_reader :i
 
   # Private method of_age? that returns true if @age is greater or equal to 18 and false otherwise.
 
