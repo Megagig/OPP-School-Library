@@ -6,4 +6,10 @@ class Person
         @age = age
         @parent_permission = parent_permission
      end
+
+       # Getters and setters
+       
+       attr_accessor :name, :age
+       attr_reader :i
+  
 end
