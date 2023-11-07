@@ -24,7 +24,12 @@ class Person
     def can_use_services?
         of_age? || @parent_permission
     end
-
+    #  method that generate id randomly
+    
+    def generate_id
+        rand(1_000..9_999)
+      end
+          
 
 
   
