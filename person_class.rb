@@ -1,7 +1,8 @@
 class Person
-    # Getters and setters
-    attr_accessor :name, :age
-    attr_reader :id
+  # Getters and setters
+  attr_accessor :name, :age
+  attr_reader :id
+
   # Constructor with instance variables
   def initialize(name = 'unknown', age = nil, parent_permission: true)
     @id = generate_id
