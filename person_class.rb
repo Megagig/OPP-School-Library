@@ -18,8 +18,14 @@ class Person
          def of_age? 
             @age >= 18
          end
+    # Public method can_use_services? that returns true if person is of age or if they have permission from parents.
+            
+    public
+    def can_use_services?
+        of_age? || @parent_permission
+    end
 
-          
+
 
   
 end
