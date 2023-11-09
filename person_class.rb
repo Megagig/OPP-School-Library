@@ -1,14 +1,22 @@
-class Person
+require_relative 'nameable'
+class Person < Nameable
   # Getters and setters
   attr_accessor :name, :age
   attr_reader :id
 
   # Constructor with instance variables
   def initialize(name = 'unknown', age = nil, parent_permission: true)
+    super()
     @id = generate_id
     @name = name
     @age = age
     @parent_permission = parent_permission
+  end
+
+  # Turn person into nameable from class Nameable
+
+  def correct_name
+    @name
   end
 
   # Private method of_age? that returns true if @age is greater or equal to 18 and false otherwise.
