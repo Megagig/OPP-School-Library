@@ -1,11 +1,11 @@
-require relative 'student_class'
-require relative 'teacher_class'
-require relative 'book'
-require relative 'classroom'
-require relative 'rental'
+require_relative 'student_class'
+require_relative 'teacher_class'
+require_relative 'book'
+require_relative 'classroom'
+require_relative 'rental'
 
 class App
-    # attr_accessor :books, :people, :rentals
+    attr_accessor :books, :people, :rentals
   
     def initialize
       @people = []
