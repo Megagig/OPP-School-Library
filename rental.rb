@@ -2,6 +2,7 @@ require_relative 'book'
 require_relative 'person_class'
 class Rental
   attr_accessor :date, :book, :person
+
   def initialize(date, person, book)
     @date = date
     @person = person
