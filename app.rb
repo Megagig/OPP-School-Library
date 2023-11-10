@@ -17,7 +17,6 @@ class App
     else
       @books.each_with_index do |book, index|
         puts "#{index} Title: #{book.title.capitalize}, Author: #{book.author.capitalize}"
-        #  { |book| puts "Title: #{book.title}, Author: #{book.author}" }
       end
     end
   end

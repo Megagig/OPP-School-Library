@@ -33,11 +33,4 @@ class Person < Nameable
   def of_age?
     @age.to_i >= 18
   end
-  # Public method can_use_services? that returns true if person is of age or if they have permission from parents.
-
-  #  method that generate id randomly
-
-  # def generate_id
-  #   rand(1_000..9_999)
-  # end
 end
