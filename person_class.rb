@@ -6,17 +6,16 @@ class Person < Nameable
 
   # Constructor with instance variables
   def initialize(name = 'unknown', age = nil, parent_permission: true)
-    super()
     @id = generate_id
     @name = name
-    @age = age
+    @age = age.to_i
     @parent_permission = parent_permission
     @rentals = []
+    super()
   end
 
-  def add_rental(rental)
-    @rentals << rental
-    rental.person = self
+  def add_rental(book, date)
+    Rental.new(date, self, book)
   end
   # Turn person into nameable from class Nameable
 
