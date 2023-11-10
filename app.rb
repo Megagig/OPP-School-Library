@@ -15,7 +15,10 @@ class App
     if @books.empty?
       puts 'The list of books is empty'
     else
-      @books.each { |book| puts "Title: #{book.title}, Author: #{book.author}" }
+      @books.each_with_index do |book, index|
+       puts "#{index} Title: #{book.title.capitalize}, Author: #{book.author.capitalize}"
+      #  { |book| puts "Title: #{book.title}, Author: #{book.author}" }
+     end
     end
   end
 
@@ -23,7 +26,13 @@ class App
     if @people.empty?
       puts 'The list of people is empty'
     else
-      @people.each
+      @people.each_with_index do |person, index|
+       if person.instance_of?(Teacher)
+        puts "#{index} [Teacher] Name: #{person.name}, ID: #{person.id}, Age: #{person.age},"
+       elsif person.instance_of?(Student)
+        puts "#{index} [Student] Name: #{person.name}, ID: #{person.id}, Age: #{person.age},"
+       end
+      end
     end
   end
 
@@ -69,10 +78,9 @@ class App
   end
 
   def create_book
-    puts 'Please enter the following information:'
-    puts 'Title:'
+    puts 'Enter the Title:'
     title = gets.chomp
-    puts 'Author:'
+    puts 'Enter the Author:'
     author = gets.chomp
     book = Book.new(title, author)
     @books.push(book)
@@ -83,64 +91,30 @@ class App
     puts 'Select a book from the following list by number:'
     list_all_books
     book_index = gets.chomp.to_i
-    rental_books = @books[book_index]
-
-    puts 'Select a person from the following list by number (not id):'
+    rented_book = @books[book_index]
+    puts 'Select a person from the following list by number (not id)'
     list_all_people
     person_index = gets.chomp.to_i
-
-    if person_index >= 0 && person_index < @people.length
-      book_renter = @people[person_index]
-
-      puts 'Date (DD/MM/YYYY):'
-      date = gets.chomp
-
-      if book_renter.respond_to?(:can_use_services?) && book_renter&.can_use_services?
-        @rentals.push Rental.new(date, rental_books, book_renter)
-        puts 'Rental created successfully'
-      else
-        puts 'Person lacks borrow permissions'
-      end
+    renter = @people[person_index]
+    puts 'Date (YYYY-MM-DD):'
+    date = gets.chomp
+    if renter.can_use_services?
+      @rentals.push Rental.new(date, rented_book, renter)
+      puts 'Rental created successfully'
     else
-      puts 'Invalid person index'
+      puts 'Person lacks borrow permissions'
     end
   end
 
-  # def create_rental
-  #   puts 'Select a book from the following list by number:'
-  #   list_all_books
-  #   book_index = gets.chomp.to_i
-  #   rental_books = @books[book_index]
-  #   puts 'Select a person from the following list by number (not id):'
-  #   list_all_people
-  #   person_index = gets.chomp.to_i
-  #   book_renter = @people[person_index]
-  #   puts 'Date (DD/MM/YYYY):'
-  #   date = gets.chomp
-  #   if book_renter.can_use_services?
-  #     @rentals.push Rental.new(date, rental_books, book_renter)
-  #     puts 'Rental created successfully'
-  #   else
-  #     puts 'Person lacks borrow permissions'
-  #   end
-  # end
-
-  # def rental_list_by_id
-  #   puts 'Rental list by ID: '
-  #   book_renter_id = gets.chomp
-  #   @rentals.each do |rental|
-  #     if rental.person.id == book_renter_id
-  #       puts "Date: #{rental.date}, Book: #{rental.book.title} by #{rental.book.author}"
-  #     end
-  #   end
-  # end
-
   def rental_list_by_id
-    puts 'Rental list by ID: '
-    book_renter_id = gets.chomp
-    @rentals.each do |rental|
-      if rental.book.is_a?(Person) && rental.book.id == book_renter_id
-        puts "Date: #{rental.date}, Book: #{rental.book.title} by #{rental.book.author}"
+    puts 'ID of person:'
+    renter_id = gets.chomp
+    renter = @people.select { |person| person.id == renter_id.to_i }
+    if renter.empty?
+      puts 'No rentals found'
+    else
+      renter.first.rentals.map do |rental|
+        puts "Date: #{rental.date}, Book: #{rental.book.title}, by #{rental.book.author}"
       end
     end
   end

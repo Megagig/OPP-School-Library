@@ -45,5 +45,4 @@ def process_option(option, app)
     app.rental_list_by_id
   end
 end
-
 main
