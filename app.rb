@@ -23,7 +23,7 @@ class App
     if @people.empty?
       puts 'The list of people is empty'
     else
-      @people.each 
+      @people.each
     end
   end
 
@@ -84,18 +84,18 @@ class App
     list_all_books
     book_index = gets.chomp.to_i
     rental_books = @books[book_index]
-  
+
     puts 'Select a person from the following list by number (not id):'
     list_all_people
     person_index = gets.chomp.to_i
-  
+
     if person_index >= 0 && person_index < @people.length
       book_renter = @people[person_index]
-  
+
       puts 'Date (DD/MM/YYYY):'
       date = gets.chomp
-  
-      if book_renter && book_renter.respond_to?(:can_use_services?) && book_renter.can_use_services?
+
+      if book_renter.respond_to?(:can_use_services?) && book_renter&.can_use_services?
         @rentals.push Rental.new(date, rental_books, book_renter)
         puts 'Rental created successfully'
       else
@@ -105,7 +105,7 @@ class App
       puts 'Invalid person index'
     end
   end
-  
+
   # def create_rental
   #   puts 'Select a book from the following list by number:'
   #   list_all_books
@@ -144,5 +144,4 @@ class App
       end
     end
   end
-  
 end
