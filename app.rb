@@ -16,9 +16,9 @@ class App
       puts 'The list of books is empty'
     else
       @books.each_with_index do |book, index|
-       puts "#{index} Title: #{book.title.capitalize}, Author: #{book.author.capitalize}"
-      #  { |book| puts "Title: #{book.title}, Author: #{book.author}" }
-     end
+        puts "#{index} Title: #{book.title.capitalize}, Author: #{book.author.capitalize}"
+        #  { |book| puts "Title: #{book.title}, Author: #{book.author}" }
+      end
     end
   end
 
@@ -27,11 +27,11 @@ class App
       puts 'The list of people is empty'
     else
       @people.each_with_index do |person, index|
-       if person.instance_of?(Teacher)
-        puts "#{index} [Teacher] Name: #{person.name}, ID: #{person.id}, Age: #{person.age},"
-       elsif person.instance_of?(Student)
-        puts "#{index} [Student] Name: #{person.name}, ID: #{person.id}, Age: #{person.age},"
-       end
+        if person.instance_of?(Teacher)
+          puts "#{index} [Teacher] Name: #{person.name}, ID: #{person.id}, Age: #{person.age},"
+        elsif person.instance_of?(Student)
+          puts "#{index} [Student] Name: #{person.name}, ID: #{person.id}, Age: #{person.age},"
+        end
       end
     end
   end
