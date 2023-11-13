@@ -3,11 +3,12 @@ require_relative 'menu'
 
 def main
   app = App.new
+  menu = Menu.new
   puts 'Welcome to School Library App!'
   puts ''
 
   loop do
-    show_menu
+    menu.show_menu
     option = gets.chomp
     if option == '7'
       puts 'Thank you for using this app!'
