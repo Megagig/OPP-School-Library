@@ -99,13 +99,21 @@ To run the project, execute the following command:
 - Twitter: [@megagigsolution](https://twitter.com/megagigsolution)
 - LinkedIn: [Anthony Obi](https://www.linkedin.com/in/obi-anthony-440a1430/)
 
+👤 **Santiago Ruido**
+
+- GitHub: [@Arch-Noize](https://github.com/Arch-Noize)
+- LinkedIn: [Santiago Ruido](https://www.linkedin.com/in/santiago-ruido-a1404880/)
+
 <!-- FUTURE FEATURES -->
 
 ## 🔮 Future Features <a name="future-features"></a>
 
-- Use the "Decorator" design pattern.
-- Set up associations.
-- Add basic UI.
+- ~~Use the "Decorator" design pattern.~~
+- ~~Set up associations.~~
+- ~~Add basic UI.~~
+- Refractor our classes.
+- Preserve data.
+- Add unit tests.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
