@@ -14,11 +14,23 @@ class App
   end
 
   def save_json
+    people_json = Manager.new('people.json')
+    people_json.save_data(@people)
+
+    rentals_json = Manager.new('rentals.json')
+    rentals_json.save_data(@rentals)
+
     books_json = Manager.new('books.json')
     books_json.save_data(@books)
   end
 
   def load_json
+    people_json = Manager.new('people.json')
+    @people = people_json.load_data
+
+    rentals_json = Manager.new('rentals.json')
+    @rentals = rentals_json.load_data
+    
     books_json = Manager.new('books.json')
     @books = books_json.load_data
   end
