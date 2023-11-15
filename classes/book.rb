@@ -13,4 +13,12 @@ class Book
   def add_rental(person, date)
     Rental.new(date, person, self)
   end
+  
+  def to_json
+    {
+      title: title,
+      author: author,
+      rentals: rentals.map(&:to_json)
+    }.to_json
+ end
 end

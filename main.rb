@@ -1,21 +1,18 @@
 require_relative 'app'
 require_relative 'menu'
-require_relative 'manager'
 
 def main
   app = App.new
   menu = Menu.new
-  manager = Manager.new
   puts 'Welcome to School Library App!'
   puts ''
 
   loop do
-    manager.load_data
     menu.show_menu
     option = gets.chomp
     if option == '7'
-      manager.save_data
       puts 'Thank you for using this app!'
+      app.close
       break
     else
       process_option(option, app)
