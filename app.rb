@@ -2,7 +2,6 @@ require './classes/student_class'
 require './classes/teacher_class'
 require './classes/rental'
 require_relative 'manager'
-require 'pry'
 
 class App
   attr_accessor :books, :people, :rentals
