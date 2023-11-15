@@ -1,6 +1,7 @@
 require './classes/student_class'
 require './classes/teacher_class'
 require './classes/rental'
+require_relative 'manager'
 
 class App
   attr_accessor :books, :people, :rentals
@@ -9,6 +10,17 @@ class App
     @people = []
     @books = []
     @rentals = []
+    load_json
+  end
+
+  def save_json
+    books_json = Manager.new('books.json')
+    books_json.save_data(@books)
+  end
+
+  def load_json
+    books_json = Manager.new('books.json')
+    @books = books_json.load_data
   end
 
   def list_all_books
@@ -116,5 +128,9 @@ class App
         puts "Date: #{rental.date}, Book: #{rental.book.title}, by #{rental.book.author}"
       end
     end
+  end
+
+  def close
+    save_json
   end
 end

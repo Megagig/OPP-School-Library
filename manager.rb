@@ -1,63 +1,26 @@
 require 'json'
 
 class Manager
-    attr_accessor :books, :people, :rentals
-
-    def initialize
-        @books = []
-        @people = []
-        @rentals = []
+    def initialize(filename)
+        @filename = filename
     end
-
-    # Single calls?
 
     def load_data
-        load_books
-        load_people
-        load_rentals
-    end
-
-    def save_data
-        save_books
-        save_people
-      save_rentals
-    end
-
-    private
-
-    # Loaders
-
-    def load_books
-        if File.exists?('books.json')
-            @books = File.open('books.json')
+        if File.exist?(@filename)
+        file = File.read(@filename)
+        JSON.parse(file, object_class: OpenStruct)
         else
-            puts 'Theres no saved books!'
+        puts "The file '#{@filename}' does not exist. Creating..."
+        File.open(@filename, 'w') do |f| 
+            f.write('[]')
+        end
+        []
         end
     end
 
-    def load_people
-
+    def save_data(data)
+        File.open(@filename, 'w') do |f| 
+        f.write(JSON.pretty_generate(data.map(&:to_json))) 
+        end
     end
-
-    def load_rentals
-
-    end
-
-    # Savers
-
-    def save_books
-       @books.each do |book| 
-        book.to_s(File.new("books.json", "w"))
-        puts 'Book saved succesfully to json'
-       end 
-    end
-
-    def save_people
-
-    end
-
-    def save_rentals
-
-    end
-
 end
