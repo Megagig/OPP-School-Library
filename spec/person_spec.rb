@@ -1,5 +1,7 @@
 require 'rspec'
+require './classes/book'
 require './classes/person_class'
+require './classes/rental'
 
 describe Person do
   context "Given a Person named Santiago, and a book by Michael Crichton" do
@@ -26,6 +28,10 @@ describe Person do
 
     it 'can_use_services should return true' do
         expect(@person.can_use_services?).to be_truthy
+    end
+
+    it 'add_rental should return an instance of Rental' do
+        expect(@person.add_rental(@book, '2023-10-29')).to be_an_instance_of(Rental)
     end
   end
 end
