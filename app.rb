@@ -7,10 +7,9 @@ class App
   attr_accessor :books, :people, :rentals
 
   def initialize
-    @people = []
-    @books = []
-    @rentals = []
-    load_json
+    @people = Manager.new('people.json').load_data
+    @books = Manager.new('books.json').load_data
+    @rentals = Manager.new('rentals.json').load_data
   end
 
   def save_json
@@ -24,23 +23,12 @@ class App
     books_json.save_data(@books)
   end
 
-  def load_json
-    people_json = Manager.new('people.json')
-    @people = people_json.load_data
-
-    rentals_json = Manager.new('rentals.json')
-    @rentals = rentals_json.load_data
-    
-    books_json = Manager.new('books.json')
-    @books = books_json.load_data
-  end
-
   def list_all_books
     if @books.empty?
       puts 'The list of books is empty'
     else
       @books.each_with_index do |book, index|
-        puts "#{index} Title: #{book.title.capitalize}, Author: #{book.author.capitalize}"
+        puts "#{index} Title: #{book['title'].capitalize}, Author: #{book['author'].capitalize}"
       end
     end
   end
@@ -50,10 +38,10 @@ class App
       puts 'The list of people is empty'
     else
       @people.each_with_index do |person, index|
-        if person.instance_of?(Teacher)
-          puts "#{index} [Teacher] Name: #{person.name}, ID: #{person.id}, Age: #{person.age},"
-        elsif person.instance_of?(Student)
-          puts "#{index} [Student] Name: #{person.name}, ID: #{person.id}, Age: #{person.age},"
+        if person.key?('specialization')
+          puts "#{index} [Teacher] Name: #{person['name']}, ID: #{person['id']}, Age: #{person['age']}"
+        else
+          puts "#{index} [Student] Name: #{person['name']}, ID: #{person['id']}, Age: #{person['age']}"
         end
       end
     end
@@ -137,7 +125,7 @@ class App
       puts 'No rentals found'
     else
       renter.first.rentals.map do |rental|
-        puts "Date: #{rental.date}, Book: #{rental.book.title}, by #{rental.book.author}"
+        puts "Date: #{rental['date']}, Book: #{rental['book']['title']}, by #{rental['book']['author']}"
       end
     end
   end
