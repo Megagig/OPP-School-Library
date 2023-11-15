@@ -16,6 +16,7 @@ class Manager
         end
         []
         end
+      end
 
     def save_data(data)
         File.open(@filename, 'w') do |f| 
