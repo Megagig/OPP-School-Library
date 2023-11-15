@@ -12,6 +12,7 @@ def main
     option = gets.chomp
     if option == '7'
       puts 'Thank you for using this app!'
+      app.close
       break
     else
       process_option(option, app)

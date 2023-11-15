@@ -1,0 +1,20 @@
+[
+  {
+    "date": "1920-10-20",
+    "book": {
+      "title": "test",
+      "author": "tesests",
+      "rentals": [
+
+      ]
+    },
+    "person": {
+      "id": 856,
+      "age": "21",
+      "name": "Santiago",
+      "parent_permission": true,
+      "classroom": "test"
+    }
+  },
+  {"date":"213-123-131","book":{"title":"jkfhjkshfksd","author":"adkasjldalsd","rentals":[]},"person":{"id":856,"age":"21","name":"Santiago","parent_permission":true,"classroom":"test"}}
+]

@@ -1,14 +1,27 @@
 require './classes/student_class'
 require './classes/teacher_class'
 require './classes/rental'
+require_relative 'manager'
+require 'pry'
 
 class App
   attr_accessor :books, :people, :rentals
 
   def initialize
-    @people = []
-    @books = []
-    @rentals = []
+    @people = Manager.new('people.json').load_data
+    @books = Manager.new('books.json').load_data
+    @rentals = Manager.new('rentals.json').load_data
+  end
+
+  def save_json
+    people_json = Manager.new('people.json')
+    people_json.save_data(@people)
+
+    rentals_json = Manager.new('rentals.json')
+    rentals_json.save_data(@rentals)
+
+    books_json = Manager.new('books.json')
+    books_json.save_data(@books)
   end
 
   def list_all_books
@@ -16,7 +29,7 @@ class App
       puts 'The list of books is empty'
     else
       @books.each_with_index do |book, index|
-        puts "#{index} Title: #{book.title.capitalize}, Author: #{book.author.capitalize}"
+        puts "#{index} Title: #{book['title'].capitalize}, Author: #{book['author'].capitalize}"
       end
     end
   end
@@ -26,10 +39,10 @@ class App
       puts 'The list of people is empty'
     else
       @people.each_with_index do |person, index|
-        if person.instance_of?(Teacher)
-          puts "#{index} [Teacher] Name: #{person.name}, ID: #{person.id}, Age: #{person.age},"
-        elsif person.instance_of?(Student)
-          puts "#{index} [Student] Name: #{person.name}, ID: #{person.id}, Age: #{person.age},"
+        if person.key?('specialization')
+          puts "#{index} [Teacher] Name: #{person['name']}, ID: #{person['id']}, Age: #{person['age']}"
+        else
+          puts "#{index} [Student] Name: #{person['name']}, ID: #{person['id']}, Age: #{person['age']}"
         end
       end
     end
@@ -91,14 +104,17 @@ class App
     list_all_books
     book_index = gets.chomp.to_i
     rented_book = @books[book_index]
+
     puts 'Select a person from the following list by number (not id)'
     list_all_people
     person_index = gets.chomp.to_i
     renter = @people[person_index]
+
     puts 'Date (YYYY-MM-DD):'
     date = gets.chomp
-    if renter.can_use_services?
-      @rentals.push Rental.new(date, rented_book, renter)
+    if renter['parent_permission'] == true
+      rental = Rental.new(date, rented_book, renter)
+      @rentals.push(rental)
       puts 'Rental created successfully'
     else
       puts 'Person lacks borrow permissions'
@@ -108,13 +124,19 @@ class App
   def rental_list_by_id
     puts 'ID of person:'
     renter_id = gets.chomp
-    renter = @people.select { |person| person.id == renter_id.to_i }
+    renter = @people.select { |person| person['id'] == renter_id.to_i }
     if renter.empty?
       puts 'No rentals found'
     else
-      renter.first.rentals.map do |rental|
-        puts "Date: #{rental.date}, Book: #{rental.book.title}, by #{rental.book.author}"
+      @rentals.each_with_index do |rental, index|
+        if rental['person']['id'] == renter_id.to_i
+          puts "#{index} Date: #{rental['date']}, Book: \"#{rental['book']['title']}\" by #{rental['book']['author']}"
+        end
       end
     end
+  end
+
+  def close
+    save_json
   end
 end
