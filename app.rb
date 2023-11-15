@@ -2,6 +2,7 @@ require './classes/student_class'
 require './classes/teacher_class'
 require './classes/rental'
 require_relative 'manager'
+require 'pry'
 
 class App
   attr_accessor :books, :people, :rentals
@@ -103,14 +104,17 @@ class App
     list_all_books
     book_index = gets.chomp.to_i
     rented_book = @books[book_index]
+
     puts 'Select a person from the following list by number (not id)'
     list_all_people
     person_index = gets.chomp.to_i
     renter = @people[person_index]
+
     puts 'Date (YYYY-MM-DD):'
     date = gets.chomp
-    if renter.can_use_services?
-      @rentals.push Rental.new(date, rented_book, renter)
+    if renter['parent_permission'] == true
+      rental = Rental.new(date, rented_book, renter)
+      @rentals.push(rental)
       puts 'Rental created successfully'
     else
       puts 'Person lacks borrow permissions'
@@ -120,12 +124,14 @@ class App
   def rental_list_by_id
     puts 'ID of person:'
     renter_id = gets.chomp
-    renter = @people.select { |person| person.id == renter_id.to_i }
+    renter = @people.select { |person| person['id'] == renter_id.to_i }
     if renter.empty?
       puts 'No rentals found'
     else
-      renter.first.rentals.map do |rental|
-        puts "Date: #{rental['date']}, Book: #{rental['book']['title']}, by #{rental['book']['author']}"
+      @rentals.each_with_index do |rental, index|
+        if rental['person']['id'] == renter_id.to_i
+          puts "#{index} Date: #{rental['date']}, Book: \"#{rental['book']['title']}\" by #{rental['book']['author']}"
+        end
       end
     end
   end

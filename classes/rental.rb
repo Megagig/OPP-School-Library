@@ -6,9 +6,9 @@ class Rental
   def initialize(date, book, person)
     @date = date
     @book = book
-    book.rentals << self
+    book['rentals'] 
     @person = person
-    person.rentals << self
+    person['rentals'] 
   end
 
   def to_json(*_args)
