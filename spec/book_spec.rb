@@ -29,7 +29,7 @@ describe Book do
         File.write('book_test.json', '[]')
         []
       end
-      
+
       File.write('book_test.json', JSON.pretty_generate(@book))
 
       expect(@book.title).to eql(json['title'])
