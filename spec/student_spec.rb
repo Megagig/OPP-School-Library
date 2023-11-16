@@ -21,5 +21,9 @@ describe Student do
     it 'can_use_services should return true, as student is over 18' do
       expect(@student.can_use_services?).to be_truthy
     end
+
+    it 'plays hooky' do
+      expect(@student.play_hooky).to eq('¯(ツ)/¯')
+    end
   end
 end
