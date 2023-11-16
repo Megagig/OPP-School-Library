@@ -1,4 +1,4 @@
-require_relative 'spec_helper' 
+require_relative 'spec_helper'
 
 RSpec.describe Decorator do
   let(:nameable_double) { double('Nameable', correct_name: 'John Doe') }

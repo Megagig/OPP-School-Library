@@ -4,34 +4,34 @@ require './classes/person_class'
 require './classes/rental'
 
 describe Person do
-  context "Given a Person named Santiago, and a book by Michael Crichton" do
+  context 'Given a Person named Santiago, and a book by Michael Crichton' do
     before :each do
       @person = Person.new(24, 'Santiago')
       @book = Book.new('Sphere', 'Michael Crichton')
     end
 
     it '@person be an instance of Person' do
-        expect(@person).to be_an_instance_of(Person)
+      expect(@person).to be_an_instance_of(Person)
     end
 
     it 'id should be between 1 and 1000' do
-        expect(@person.id).to be_between(1, 1000).inclusive
+      expect(@person.id).to be_between(1, 1000).inclusive
     end
 
     it 'correct_name should return person.name' do
-        expect(@person.correct_name).to eql('Santiago')
+      expect(@person.correct_name).to eql('Santiago')
     end
 
     it 'of_age should return true' do
-        expect(@person.send(:of_age?)).to be true
+      expect(@person.send(:of_age?)).to be true
     end
 
     it 'can_use_services should return true' do
-        expect(@person.can_use_services?).to be_truthy
+      expect(@person.can_use_services?).to be_truthy
     end
 
     it 'add_rental should return an instance of Rental' do
-        expect(@person.add_rental(@book, '2023-10-29')).to be_an_instance_of(Rental)
+      expect(@person.add_rental(@book, '2023-10-29')).to be_an_instance_of(Rental)
     end
   end
 end
